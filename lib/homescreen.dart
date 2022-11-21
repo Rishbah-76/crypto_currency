@@ -1,3 +1,4 @@
+import 'package:crypto_currency/update_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,8 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              onTap: () {},
-              leading: Icon(Icons.account_box),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UpdateProfileScreen()));
+              },
+              leading: const Icon(Icons.account_box),
               title: const Text(
                 "Update Profile",
                 style: TextStyle(
