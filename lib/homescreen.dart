@@ -14,15 +14,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUserDetails();
   }
 
   void getUserDetails() async {
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    name = _pref.getString('name') ?? "";
-    email = _pref.getString('email') ?? "";
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    setState(() {
+      name = pref.getString('name') ?? "";
+      email = pref.getString('email') ?? "";
+    });
+    print(name);
   }
 
   @override

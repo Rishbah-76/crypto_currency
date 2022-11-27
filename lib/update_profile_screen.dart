@@ -10,14 +10,21 @@ class UpdateProfileScreen extends StatelessWidget {
   //to Store the data in local storage
   Future<void> saveDataToLocal(String key, String value) async {
     //Initializing thr shared_preferences instance
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    await _pref.setString(key, value);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString(key, value);
   }
+
+  // void saveUserDetails() {
+  //   print(name.text);
+  //   print(email.text);
+  // }
 
   //To retrive the data from TextField annd store in local storage
   void saveUserDetails() async {
+    // print("fun called");
     await saveDataToLocal('name', name.text);
     await saveDataToLocal('email', email.text);
+    //print(name.text);
   }
 
   @override
@@ -30,7 +37,11 @@ class UpdateProfileScreen extends StatelessWidget {
         children: [
           customTextfield("Name", name),
           customTextfield("Email", email),
-          ElevatedButton(onPressed: () {}, child: const Text("Update Details"))
+          ElevatedButton(
+              onPressed: () {
+                saveUserDetails();
+              },
+              child: const Text("Update Details"))
         ],
       ),
     );
@@ -40,8 +51,9 @@ class UpdateProfileScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           hintText: title,
         ),
       ),
