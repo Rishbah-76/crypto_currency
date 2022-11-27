@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String name = " ", email = " ";
+  bool isDarkMode = false;
 
   @override
   void initState() {
@@ -31,10 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isDarkMode ? Colors.black26 : Colors.white,
       appBar: AppBar(
         title: const Text("CryptoCurrency"),
       ),
       drawer: Drawer(
+        backgroundColor: isDarkMode ? Colors.black26 : Colors.white,
         child: Column(
           children: [
             UserAccountsDrawerHeader(
@@ -65,10 +68,51 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(
                         builder: (context) => UpdateProfileScreen()));
               },
-              leading: const Icon(Icons.account_box),
-              title: const Text(
+              leading: isDarkMode
+                  ? Icon(
+                      Icons.account_box,
+                      color: isDarkMode
+                          ? Color.fromARGB(225, 222, 212, 22)
+                          : Colors.black,
+                    )
+                  : const Icon(
+                      Icons.account_box,
+                    ),
+              title: Text(
                 "Update Profile",
                 style: TextStyle(
+                  color: isDarkMode
+                      ? const Color.fromARGB(225, 222, 212, 22)
+                      : Colors.black,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            ListTile(
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                setState(() {
+                  isDarkMode = !isDarkMode;
+                });
+                await prefs.setBool("isDarkMode", isDarkMode);
+              },
+              leading: isDarkMode
+                  ? Icon(
+                      Icons.dark_mode,
+                      color: isDarkMode
+                          ? const Color.fromARGB(225, 222, 212, 22)
+                          : Colors.black,
+                    )
+                  : const Icon(
+                      Icons.light_mode,
+                    ),
+              title: Text(
+                isDarkMode ? "Dark Mode" : "Light Mode",
+                style: TextStyle(
+                  color: isDarkMode
+                      ? const Color.fromARGB(225, 222, 212, 22)
+                      : Colors.black,
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
                 ),
